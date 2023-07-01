@@ -72,7 +72,7 @@ class SSH_Client:
                             if len(out) == 0:
                                 is_alive = False
                             else:
-                                print(f"{out.decode('ascii')}", end='')
+                                print(f"{out.decode()}", end='')
                                 sys.stdout.flush()
                         except socket.timeout:
                             pass
