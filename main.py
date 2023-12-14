@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from client.client import SSH_Client 
+from modules.client import SSH_Client 
 
 # func to handle argument parsing
 def parse_args(): 
