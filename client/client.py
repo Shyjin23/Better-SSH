@@ -1,19 +1,21 @@
-from scp import SCPClient 
-import paramiko  
-import getpass
+import os 
 import sys
-import subprocess 
+import tty  
 import socket
 import select
-import os 
+import getpass
 import termios 
-import tty  
+import paramiko  
+import subprocess 
+from scp import SCPClient 
 
 class SSH_Client: 
 
+    # func to receive password from user without echo
     def getpass(self, host, user):
         return getpass.getpass(prompt=f"{user}@{host}'s password: ", stream=None)  
 
+    # func to instantiate an connection with the remote server
     def establish_connection(self, host, port, user, password, pkey): 
         client = paramiko.client.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -41,6 +43,7 @@ class SSH_Client:
 
         return 
         
+    # func to open channel for interactive shell communication 
     def open_shell(self, host, client):
 
         def resize_pty(channel):
@@ -96,6 +99,7 @@ class SSH_Client:
         client.close()
         return 
 
+    # func to handle file transfers
     def transfer(self, client, local_path, remote_path, action):
         def progress(filename, size, sent):
             sys.stdout.write("\r%s's progress: %.2f%%   " % (filename.decode(), float(sent) / float(size) * 100))

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3 
 
-from client import SSH_Client 
-import argparse
 import sys
+import argparse
+from client.client import SSH_Client 
 
+# func to handle argument parsing
 def parse_args(): 
     try:
         parser = argparse.ArgumentParser()
