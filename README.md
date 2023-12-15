@@ -1,6 +1,7 @@
 
 &rarr; Paramiko-Shell
-: A command-line SSH client implemented in Python using the Paramiko library.
+
+A command-line SSH client implemented in Python using the Paramiko library.
 
 ---
 
@@ -24,7 +25,7 @@
 
 To use the SSH client, clone this repository, navigate to the project directory and run the `main.py` file with the desired command-line arguments.
 
-### ***Connect to a remote server*** :
+#### ***Connect to a remote server*** :
 
 To connect to a remote server, use the `connect` command:
 
