@@ -16,6 +16,7 @@
 
 To use the SSH client, clone this repository, navigate to the project directory and run the `main.py` file with the desired command-line arguments.
 
+
 #### Connect to a remote server :
 
 To connect to a remote server, use the `connect` command:
@@ -31,6 +32,7 @@ Eg: ./main.py connect -H user@127.0.0.1
 `<port>` (optional): Specify the SSH port number. Default is 22.
 
 `<private_key>` (optional): Specify the path to a private key file for authentication.
+
 
 #### Transfer files :
 
