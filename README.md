@@ -1,5 +1,4 @@
-
-¥ This is a command-line SSH client implemented in Python using the Paramiko library. 
+~ This is a command-line SSH client implemented in Python using the Paramiko library. 
 
 ### Features :
 
