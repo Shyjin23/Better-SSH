@@ -1,129 +1,133 @@
 # Better-SSH
 
-A lightweight SSH/SCP client built for CTFs, labs, and experimentation.
+A lightweight Python SSH/SCP client for CTFs, labs, and experimentation.
+
+Better-SSH provides a simple command-line interface for connecting to remote systems over SSH and transferring files over SCP.
 
 ## Features
 
-- Connect to remote systems over SSH.
-- Open an interactive remote shell.
-- Upload and download files over SCP.
-- Support password authentication and RSA private keys.
-- Keep file operations under a single extensible `transfer` command.
+* Connect to remote systems over SSH.
+* Open an interactive remote shell.
+* Upload files to remote systems.
+* Download files from remote systems.
+* Support password authentication.
+* Support RSA private key authentication.
+* Keep SSH and file-transfer operations under a simple CLI.
+* Designed to be lightweight and easy to extend.
 
 ## Requirements
 
-- Python 3.12+
-- An SSH server for remote connections.
+* Python 3.12+
+* An accessible SSH server for remote connections.
 
 ## Installation
 
-Clone the repository and install it in editable mode:
+Clone the repository and install the project in editable mode:
 
 ```bash
-python -m pip install --editable ".[dev]"
+git clone https://github.com/<username>/Better-SSH.git
+cd Better-SSH
+
+python -m pip install -e .
+```
+
+For development, install the development dependencies:
+
+```bash
+python -m pip install -e ".[dev]"
 ```
 
 ## Usage
 
-### Connect
+Run the CLI with:
 
 ```bash
-better-ssh connect user@host
+better-ssh --help
 ```
 
-Specify a non-default SSH port:
+### SSH Connection
+
+Connect to a remote SSH server:
 
 ```bash
-better-ssh connect user@host --port 2222
+better-ssh connect <host> -u <username>
 ```
 
-Use an RSA private key:
+Depending on the authentication method, you can provide a password or RSA private key.
+
+### File Transfer
+
+File operations are handled through the `transfer` command.
+
+Upload a file:
 
 ```bash
-better-ssh connect user@host --identity ~/.ssh/id_rsa
+better-ssh transfer upload <local-file> <remote-path>
 ```
 
-### Transfer files
-
-The `transfer` command handles file operations through an action. This keeps
-file transfer in one place and leaves room for additional actions later.
-
-Upload a local file to the remote system:
+Download a file:
 
 ```bash
-better-ssh transfer user@host /local/file /remote/path --action upload
+better-ssh transfer download <remote-file> <local-path>
 ```
 
-Download a remote file to the local system:
+Use:
 
 ```bash
-better-ssh transfer user@host /remote/file /local/path --action download
+better-ssh transfer --help
 ```
 
-The same authentication options are available for transfers:
+for the currently supported options.
 
-```bash
-better-ssh transfer user@host /local/file /remote/path --action upload --port 2222
-better-ssh transfer user@host /local/file /remote/path --action upload --identity ~/.ssh/id_rsa
-```
+> **Note:** The exact command-line options may change as the project develops. Use `--help` for the authoritative list of available commands and options.
 
-## Project structure
+
+## Project Structure
+
+The project follows a simple, module-oriented structure:
 
 ```text
-better-ssh/
-├── .github/
-│   └── workflows/
-│       └── ci.yml
+Better-SSH/
 ├── src/
 │   └── better_ssh/
-│       ├── __init__.py
-│       ├── __main__.py
 │       ├── cli/
-│       │   ├── __init__.py
-│       │   ├── main.py
-│       │   ├── parsing.py
-│       │   └── commands/
-│       │       ├── __init__.py
-│       │       ├── connect.py
-│       │       └── transfer.py
-│       └── ssh/
-│           ├── __init__.py
-│           ├── client.py
-│           └── shell.py
+│       │   ├── commands/
+│       │   └── main.py
+│       ├── ssh/
+│       └── ...
 ├── tests/
-│   ├── conftest.py
-│   ├── cli/
-│   │   ├── test_main.py
-│   │   └── test_parsing.py
-│   └── ssh/
-│       └── test_client.py
-├── .gitignore
-├── LICENSE
+├── pyproject.toml
 ├── README.md
-└── pyproject.toml
+└── LICENSE
 ```
+
+The implementation is kept modular so that SSH functionality, file transfers, and CLI commands can evolve independently without introducing unnecessary abstraction.
 
 ## Development
 
-Install the development dependencies:
+Clone the repository and install the development dependencies:
 
 ```bash
-python -m pip install --editable ".[dev]"
+python -m pip install -e ".[dev]"
 ```
 
-Run the test suite:
+Run the test suite with:
 
 ```bash
 pytest
 ```
 
-Run Ruff:
+## Project Goals
 
-```bash
-ruff check .
-```
+Better-SSH is primarily an educational and practical project intended for:
 
-## Platform note
+* CTF environments.
+* SSH experimentation.
+* Learning Python networking and CLI development.
+* Building small security-focused utilities.
 
-Interactive shell support currently targets POSIX systems. SSH connections and
-file transfers do not require the local interactive shell functionality.
+The project intentionally favors straightforward implementations over unnecessary complexity.
+
+## License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
