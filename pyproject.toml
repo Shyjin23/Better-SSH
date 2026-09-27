@@ -29,6 +29,7 @@ better-ssh = "better_ssh.cli.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["better_ssh*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -38,8 +39,16 @@ markers = [
 ]
 
 [tool.ruff]
-line-length = 88
+line-length = 100
 target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.coverage.run]
+branch = true
+source = ["better_ssh"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
