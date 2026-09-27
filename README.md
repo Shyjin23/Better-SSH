@@ -12,7 +12,6 @@ Better-SSH provides a simple command-line interface for connecting to remote sys
 * Download files from remote systems.
 * Support password authentication.
 * Support RSA private key authentication.
-* Keep SSH and file-transfer operations under a simple CLI.
 * Designed to be lightweight and easy to extend.
 
 ## Requirements
@@ -50,7 +49,7 @@ better-ssh --help
 Connect to a remote SSH server:
 
 ```bash
-better-ssh connect <host> -u <username>
+better-ssh connect <host> <-p target_port>
 ```
 
 Depending on the authentication method, you can provide a password or RSA private key.
@@ -62,13 +61,13 @@ File operations are handled through the `transfer` command.
 Upload a file:
 
 ```bash
-better-ssh transfer upload <local-file> <remote-path>
+better-ssh transfer <host> <local-file> <remote-path> -x upload
 ```
 
 Download a file:
 
 ```bash
-better-ssh transfer download <remote-file> <local-path>
+better-ssh transfer <host> <remote-file> <local-path> -x download
 ```
 
 Use:
