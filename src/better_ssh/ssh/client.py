@@ -2,19 +2,25 @@
 
 from __future__ import annotations
 
-from typing import Any
-from pathlib import Path
 from getpass import getpass
+from pathlib import Path
+from typing import Any
 
 import paramiko
-
 from scp import SCPClient as SCPTransferClient
 
 
 class SSHClient:
     """Small wrapper around Paramiko and SCP for the CLI."""
 
-    def __init__(self, hostname: str, username: str, port: int = 22, identity_file: Path | None = None) -> None:
+    def __init__(
+            self, 
+            hostname: str, 
+            username: str, 
+            port: int = 22, 
+            identity_file: Path | None = None
+        ) -> None:
+
         self.hostname = hostname
         self.username = username
         self.port = port
