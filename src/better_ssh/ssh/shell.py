@@ -21,9 +21,6 @@ class InteractiveShell:
     def run(self) -> None:
         """Start the remote interactive shell."""
         
-        if os.name == "nt":
-            raise RuntimeError("Interactive shell is currently supported on POSIX only")
-
         channel = self.client.invoke_shell()
         old_settings = termios.tcgetattr(sys.stdin)
 

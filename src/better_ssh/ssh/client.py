@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from getpass import getpass
 from pathlib import Path
 from typing import Any
@@ -53,6 +54,10 @@ class SSHClient:
 
     def open_shell(self) -> None:
         """Open an interactive shell over the SSH connection."""
+
+        if os.name == "nt":
+            raise RuntimeError("Interactive shell is currently supported on POSIX only")
+
         
         if self._client is None:
             raise RuntimeError("SSH client is not connected")

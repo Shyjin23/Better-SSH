@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import argparse
 
-import paramiko
+from paramiko.ssh_exception import (
+    AuthenticationException,
+    BadHostKeyException,
+    NoValidConnectionsError,
+    SSHException,
+)
 from scp import SCPException
 
 from better_ssh import __version__
@@ -84,13 +89,13 @@ def main() -> None:
     try:
         args.handler(args)
     
-    except paramiko.AuthenticationException:
+    except AuthenticationException:
         parser.error("Authentication failed")
-    except paramiko.BadHostKeyException:
+    except BadHostKeyException:
         parser.error("Host key verification failed")
-    except paramiko.NoValidConnectionsError as exc:
+    except NoValidConnectionsError as exc:
         parser.error(f"Connection failed: {exc}")
-    except paramiko.SSHException as exc:
+    except SSHException as exc:
         parser.error(f"SSH error: {exc}")
     except SCPException as exc:
         parser.error(f"SCP error: {exc}")
