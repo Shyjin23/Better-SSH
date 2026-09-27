@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import argparse
 
+import paramiko
+from scp import SCPException
+
 from better_ssh import __version__
 from better_ssh.cli.commands.connect import run_connect
 from better_ssh.cli.commands.transfer import run_transfer
@@ -11,6 +14,7 @@ from better_ssh.cli.commands.transfer import run_transfer
 
 def build_parser() -> argparse.ArgumentParser:
     """Build the command-line argument parser."""
+    
     parser = argparse.ArgumentParser(
         prog="better-ssh",
         description="A lightweight SSH/SCP client built for CTFs, labs, "
@@ -56,6 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _add_connection_options(parser: argparse.ArgumentParser) -> None:
     """Add options shared by SSH commands."""
+    
     parser.add_argument(
         "-p",
         "--port",
@@ -72,10 +77,22 @@ def _add_connection_options(parser: argparse.ArgumentParser) -> None:
 
 def main() -> None:
     """Run the Better-SSH command-line interface."""
+    
     parser = build_parser()
     args = parser.parse_args()
 
     try:
         args.handler(args)
-    except ValueError as exc:
+    
+    except paramiko.AuthenticationException:
+        parser.error("Authentication failed")
+    except paramiko.BadHostKeyException:
+        parser.error("Host key verification failed")
+    except paramiko.NoValidConnectionsError as exc:
+        parser.error(f"Connection failed: {exc}")
+    except paramiko.SSHException as exc:
+        parser.error(f"SSH error: {exc}")
+    except SCPException as exc:
+        parser.error(f"SCP error: {exc}")
+    except (ValueError, FileNotFoundError, PermissionError, RuntimeError) as exc:
         parser.error(str(exc))

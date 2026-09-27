@@ -11,6 +11,7 @@ from better_ssh.ssh.client import SSHClient
 
 def run_connect(args: Namespace) -> None:
     """Connect to a host and open an interactive shell."""
+    
     username, hostname = parse_user_host(args.target)
 
     client = SSHClient(

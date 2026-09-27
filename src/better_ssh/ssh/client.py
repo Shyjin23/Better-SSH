@@ -30,6 +30,7 @@ class SSHClient:
 
     def connect(self) -> None:
         """Establish an SSH connection."""
+        
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -52,6 +53,7 @@ class SSHClient:
 
     def open_shell(self) -> None:
         """Open an interactive shell over the SSH connection."""
+        
         if self._client is None:
             raise RuntimeError("SSH client is not connected")
 
@@ -62,6 +64,7 @@ class SSHClient:
 
     def upload(self, source: str, destination: str) -> None:
         """Upload a local file to the remote system."""
+        
         client = self._require_connection()
         with SCPTransferClient(client.get_transport()) as scp_client:
             scp_client.put(source, destination)
@@ -69,6 +72,7 @@ class SSHClient:
 
     def download(self, source: str, destination: str) -> None:
         """Download a remote file to the local system."""
+        
         client = self._require_connection()
         with SCPTransferClient(client.get_transport()) as scp_client:
             scp_client.get(source, destination)
@@ -76,12 +80,15 @@ class SSHClient:
 
     def close(self) -> None:
         """Close the SSH connection."""
+        
         if self._client is not None:
             self._client.close()
             self._client = None
 
 
     def _require_connection(self) -> paramiko.SSHClient:
+        """Return the active SSH client or raise if not connected."""
+
         if self._client is None:
             raise RuntimeError("SSH client is not connected")
         return self._client
@@ -90,6 +97,7 @@ class SSHClient:
     @staticmethod
     def _load_private_key(path: Path) -> paramiko.RSAKey:
         """Load an RSA private key, prompting for a passphrase when needed."""
+       
         try:
             return paramiko.RSAKey.from_private_key_file(path)
         except paramiko.PasswordRequiredException:

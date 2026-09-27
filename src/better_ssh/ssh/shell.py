@@ -20,6 +20,7 @@ class InteractiveShell:
 
     def run(self) -> None:
         """Start the remote interactive shell."""
+        
         if os.name == "nt":
             raise RuntimeError("Interactive shell is currently supported on POSIX only")
 
@@ -51,6 +52,7 @@ class InteractiveShell:
     @staticmethod
     def _resize_channel(channel: paramiko.Channel) -> None:
         """Match the remote PTY to the current terminal size when possible."""
+        
         try:
             columns = os.get_terminal_size().columns
             rows = os.get_terminal_size().lines

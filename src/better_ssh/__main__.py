@@ -1,4 +1,4 @@
-"""Command-line entry point for Better-SSH."""
+"""Run the Better-SSH command-line interface."""
 
 from better_ssh.cli.main import main
 
