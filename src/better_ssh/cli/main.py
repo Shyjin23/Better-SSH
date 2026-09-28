@@ -22,8 +22,7 @@ def build_parser() -> argparse.ArgumentParser:
     
     parser = argparse.ArgumentParser(
         prog="better-ssh",
-        description="A lightweight SSH/SCP client built for CTFs, labs, "
-        "and experimentation.",
+        description="A lightweight SSH/SCP client built for CTFs, labs, and experimentation.",
     )
     parser.add_argument("--version", action="version", version=__version__)
 

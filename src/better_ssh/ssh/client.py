@@ -57,7 +57,6 @@ class SSHClient:
 
         if os.name == "nt":
             raise RuntimeError("Interactive shell is currently supported on POSIX only")
-
         
         if self._client is None:
             raise RuntimeError("SSH client is not connected")
